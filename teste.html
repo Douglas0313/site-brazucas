@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adicionar Resultado do Jogo de Futebol</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .team {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .team img {
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+        }
+        .team-name {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .score {
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .goals {
+            margin-top: 20px;
+        }
+        .goal {
+            margin-bottom: 5px;
+        }
+        .new-game {
+            margin-bottom: 20px;
+        }
+        .new-game input, .new-game button {
+            display: block;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="new-game">
+            <h2>Adicionar Novo Jogo</h2>
+            <label for="team1-name">Nome do Time 1:</label>
+            <input type="text" id="team1-name">
+            <label for="team1-img">URL da Imagem do Time 1:</label>
+            <input type="text" id="team1-img">
+            <label for="team2-name">Nome do Time 2:</label>
+            <input type="text" id="team2-name">
+            <label for="team2-img">URL da Imagem do Time 2:</label>
+            <input type="text" id="team2-img">
+            <label for="score">Resultado (ex: 2 - 1):</label>
+            <input type="text" id="score">
+            <label for="goals">Gols (ex: Time 1: Jogador A (10'), Jogador B (45'); Time 2: Jogador C (70')):</label>
+            <input type="text" id="goals">
+            <button id="add-game-btn">Adicionar Jogo</button>
+        </div>
+        <div id="games-list">
+            <!-- Jogos adicionados aparecerão aqui -->
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('add-game-btn').addEventListener('click', function() {
+            // Obtém os valores dos campos de entrada
+            const team1Name = document.getElementById('team1-name').value;
+            const team1Img = document.getElementById('team1-img').value;
+            const team2Name = document.getElementById('team2-name').value;
+            const team2Img = document.getElementById('team2-img').value;
+            const score = document.getElementById('score').value;
+            const goals = document.getElementById('goals').value;
+
+            // Cria o contêiner do novo jogo
+            const gameContainer = document.createElement('div');
+            gameContainer.className = 'container';
+
+            // Adiciona os detalhes do Time 1
+            const team1Div = document.createElement('div');
+            team1Div.className = 'team';
+            const team1ImgElem = document.createElement('img');
+            team1ImgElem.src = team1Img;
+            const team1NameElem = document.createElement('div');
+            team1NameElem.className = 'team-name';
+            team1NameElem.textContent = team1Name;
+            team1Div.appendChild(team1ImgElem);
+            team1Div.appendChild(team1NameElem);
+            gameContainer.appendChild(team1Div);
+
+            // Adiciona os detalhes do Time 2
+            const team2Div = document.createElement('div');
+            team2Div.className = 'team';
+            const team2ImgElem = document.createElement('img');
+            team2ImgElem.src = team2Img;
+            const team2NameElem = document.createElement('div');
+            team2NameElem.className = 'team-name';
+            team2NameElem.textContent = team2Name;
+            team2Div.appendChild(team2ImgElem);
+            team2Div.appendChild(team2NameElem);
+            gameContainer.appendChild(team2Div);
+
+            // Adiciona o resultado da partida
+            const scoreElem = document.createElement('div');
+            scoreElem.className = 'score';
+            scoreElem.textContent = score;
+            gameContainer.appendChild(scoreElem);
+
+            // Adiciona os gols
+            const goalsDiv = document.createElement('div');
+            goalsDiv.className = 'goals';
+            const goalsArray = goals.split(';').map(goal => goal.trim());
+            goalsArray.forEach(goal => {
+                const goalElem = document.createElement('div');
+                goalElem.className = 'goal';
+                goalElem.innerHTML = `<strong>${goal.split(':')[0]}:</strong> ${goal.split(':')[1]}`;
+                goalsDiv.appendChild(goalElem);
+            });
+            gameContainer.appendChild(goalsDiv);
+
+            // Adiciona o novo jogo à lista de jogos
+            document.getElementById('games-list').appendChild(gameContainer);
+
+            // Limpa os campos de entrada
+            document.getElementById('team1-name').value = '';
+            document.getElementById('team1-img').value = '';
+            document.getElementById('team2-name').value = '';
+            document.getElementById('team2-img').value = '';
+            document.getElementById('score').value = '';
+            document.getElementById('goals').value = '';
+        });
+    </script>
+</body>
+</html>
