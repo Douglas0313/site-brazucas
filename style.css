@@ -41,3 +41,17 @@
 .imagens__logo img{
     height: 150px;
 }
+
+.sessao-icone{
+    width: 100%;
+    text-align: center;
+}
+
+.imagem-icone  {
+    width: 350px;
+    
+}
+
+.imagem-time{
+    width: 100%;
+}
